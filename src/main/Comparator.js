@@ -27,21 +27,6 @@ export default function Comparator(props) {
                     </Row>)
                 }
             })}
-            <Row>
-                <Summary services={services} />
-            </Row>
         </Container >
-    )
-}
-
-function Summary() {
-    return (
-        <Container>
-            <Row>
-                <Col>
-                    Summary
-                </Col>
-            </Row>
-        </Container>
     )
 }

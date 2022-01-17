@@ -30,9 +30,9 @@ export default function Summary(props) {
     return (
         <Container>
             <Row>
-                <Col>AWS Summary: {providerSummary['aws'].summary}</Col>
-                <Col>GCP Summary: {providerSummary['gcp'].summary}</Col>
-                <Col>Azure Summary: {providerSummary['azure'].summary}</Col>
+                <Col>AWS Summary: {providerSummary['aws'].summary ? providerSummary['aws'].summary : 0}</Col>
+                <Col>GCP Summary: {providerSummary['gcp'].summary ? providerSummary['gcp'].summary : 0}</Col>
+                <Col>Azure Summary: {providerSummary['azure'].summary ? providerSummary['azure'].summary : 0}</Col>
             </Row>
         </Container >
     )
