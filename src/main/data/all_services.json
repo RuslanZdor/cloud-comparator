@@ -1,0 +1,64 @@
+[
+    {
+        "name": "Object Storage",
+        "id": "1",
+        "fields": [
+            {
+                "label": "Storage",
+                "id": "storage_size",
+                "description": "Enter number of GB storage",
+                "defaultValue": 0
+            },
+            {
+                "label": "Input traffic",
+                "id": "input_traffic",
+                "description": "Enter number of GB storage",
+                "defaultValue": 0
+            },
+            {
+                "label": "Output staffic",
+                "id": "output_traffic",
+                "description": "Enter number of GB storage",
+                "defaultValue": 0
+            }
+        ],
+        "providers": {
+            "aws": {
+                "label": "Amazon S3 Storage",
+                "prices": {
+                    "storage_size": 0.01,
+                    "input_traffic": 0.01,
+                    "output_traffic": 0.01
+                }
+            },
+            "gcp": {
+                "label": "Google Cloud Storage",
+                "prices": {
+                    "storage_size": 0.01,
+                    "input_traffic": 0.01,
+                    "output_traffic": 0.01
+                }
+            },
+            "azure": {
+                "label": "Azure Storage",
+                "prices": {
+                    "storage_size": 0.01,
+                    "input_traffic": 0.01,
+                    "output_traffic": 0.01
+                }
+            }
+        }
+    },
+    {
+        "name": "Function",
+        "id": "2",
+        "fields": [
+            {
+                "label": "Run Count",
+                "id": "run_count",
+                "description": "Enter number of GB storage",
+                "defaultValue": 0
+            }
+        ]
+    }
+]
