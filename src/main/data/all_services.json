@@ -59,6 +59,26 @@
                 "description": "Enter number of GB storage",
                 "defaultValue": 0
             }
-        ]
+        ],
+        "providers": {
+            "aws": {
+                "label": "AWS Function",
+                "prices": {
+                    "run_count": 0.01
+                }
+            },
+            "gcp": {
+                "label": "Google Function",
+                "prices": {
+                    "run_count": 0.01
+                }
+            },
+            "azure": {
+                "label": "Azure Function",
+                "prices": {
+                    "run_count": 0.01
+                }
+            }
+        }
     }
 ]
