@@ -22,8 +22,6 @@ export class Service {
     summary(providerId) {
         let result = 0;
         const provider = this.providers[providerId];
-        console.log("providerId " + providerId);
-        console.log("this.providers " + this.providers);
         this.fields.forEach(field => {
             result += field.value * provider.prices[field.id];
         });

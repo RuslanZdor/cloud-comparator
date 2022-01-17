@@ -28,7 +28,7 @@ export default function Comparator(props) {
                 }
             })}
             <Row>
-                <Summary />
+                <Summary services={services} />
             </Row>
         </Container >
     )

@@ -8,7 +8,6 @@ export default function CreateNewService(props) {
     const [formData, updateFormData] = React.useState({});
 
     const SaveServiceClickHandler = (e) => {
-        console.log(formData);
         props.saveNewService(service.id, formData);
     }
 

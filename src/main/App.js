@@ -1,8 +1,9 @@
 import Comparator from "./Comparator";
 import SelectService from "./SelectService";
+import Summary from "./Summary";
 import serviceList from "./data/all_services.json";
 import CloudServiceDataController from "./data/CloudServiceDataController"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
 
@@ -13,7 +14,6 @@ function App() {
   let addCurrentServiceHandler = (serviceId) => {
     dataController.addServiceToCurrentList(serviceId);
     setCurrentService(new Map(dataController.currentServices()));
-    console.log(currentServices);
   }
 
   let saveCurrentServiceHandler = (serviceId, data) => {
@@ -33,6 +33,9 @@ function App() {
       <div>
         <Comparator currentServices={currentServices}
           saveNewService={saveCurrentServiceHandler} />
+      </div>
+      <div>
+        <Summary services={currentServices} />
       </div>
     </div>
   );
