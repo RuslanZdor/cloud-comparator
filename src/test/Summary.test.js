@@ -1,9 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import Summary from '../main/Summary';
+import ServiceDataController, { Service } from '../main/data/CloudServiceDataController';
 
-const service = {
-  "name": "object storage",
-  "fields": [
+const service = new Service(
+  "1",
+  "object storage",
+  "service.description",
+  [
     {
       "label": "Storage",
       "id": "storage_size",
@@ -12,7 +15,7 @@ const service = {
       "value": 50
     }
   ],
-  "providers": {
+  {
     "aws": {
       "prices": {
         "storage_size": 1
@@ -29,16 +32,16 @@ const service = {
       }
     }
   }
-}
+)
 
 test('Test that summary as multiple clouds', () => {
-  render(<Summary />);
+  render(<Summary services={[service]} />);
   expect(screen.getByText(/aws summary/i)).toBeInTheDocument();
   expect(screen.getByText(/gcp summary/i)).toBeInTheDocument();
   expect(screen.getByText(/azure summary/i)).toBeInTheDocument();
 });
 
 test('Test summary field - it has to be equal to all values to fields', () => {
-  render(<FinishedService service={service} />);
+  render(<Summary services={[service]} />);
   expect(screen.getByText(/150/i)).toBeInTheDocument();
 })

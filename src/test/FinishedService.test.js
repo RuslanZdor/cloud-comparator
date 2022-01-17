@@ -1,10 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import FinishedService from '../main/FinishedService';
-import Comparator, { Service } from '../main/FinishedService';
+import ServiceDataController, { Service } from '../main/data/CloudServiceDataController';
 
-const service = {
-  "name": "object storage",
-  "fields": [
+const service = new Service(
+  "1",
+  "object storage",
+  "service.description",
+  [
     {
       "label": "Storage",
       "id": "storage_size",
@@ -13,7 +15,7 @@ const service = {
       "value": 50
     }
   ],
-  "providers": {
+  {
     "aws": {
       "prices": {
         "storage_size": 1
@@ -30,12 +32,12 @@ const service = {
       }
     }
   }
-}
+)
 
 test('Test that service contain service name', () => {
   render(<FinishedService service={service} />);
   expect(screen.getByText(/object storage/i)).toBeInTheDocument();
-  expect(screen.getByText(/150/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/150/i).length > 0).toBe(true);
 });
 
 test('Test that if provider is not exist for specific service - application will display proper message', () => {
@@ -59,6 +61,6 @@ test('Test that if provider is not exist for specific service - application will
 
 test('Test summary field - it has to be equal to all values to fields', () => {
   render(<FinishedService service={service} />);
-  expect(screen.getByText(/summary:/i)).toBeInTheDocument();
-  expect(screen.getByText(/300/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/summary:/i).length).toBe(3);
+  expect(screen.getAllByText(/150/i).length > 0).toBe(true);
 })
