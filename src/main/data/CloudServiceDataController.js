@@ -1,5 +1,5 @@
-let currentServices = new Map();
-let services = [];
+
+import { v4 as uuidv4 } from 'uuid';
 
 export class Field {
     constructor(id, label, description, defaultValue) {
@@ -31,32 +31,35 @@ export class Service {
 
 export default class ServiceDataController {
     constructor(serviceList) {
-        services = serviceList;
-        services.map(service => service.isFinished = false)
+        this.services = serviceList;
+        this.services.map(service => service.isFinished = false)
+        this.currentServices = new Map();
     }
 
-    services() {
-        return services;
+    getServices() {
+        return this.services;
     }
 
-    currentServices() {
-        return currentServices;
+    getCurrentServices() {
+        return this.currentServices;
     }
 
     addServiceToCurrentList(serviceId) {
         if (serviceId == null) {
             throw new Error("Service Id cannot be null");
         }
-        let service = services.find(service => service.id === serviceId);
+        let service = this.services.find(service => service.id === serviceId);
+        const newServiceId = uuidv4();
         let newInstance = new Service(
-            service.id,
+            newServiceId,
             service.name,
             service.description,
             service.fields,
             service.providers
         );
         newInstance.isFinished = false;
-        currentServices.set(serviceId, newInstance);
+        this.currentServices.set(newServiceId, newInstance);
+        return newServiceId;
     }
 
     removeCurrentService(serviceId) {
@@ -64,11 +67,11 @@ export default class ServiceDataController {
             throw new Error("Service Id cannot be null");
         }
         console.log("removing service " + serviceId);
-        currentServices.delete(serviceId);
+        this.currentServices.delete(serviceId);
     }
 
     saveNewService(serviceId, data) {
-        const service = currentServices.get(serviceId);
+        const service = this.currentServices.get(serviceId);
         service.isFinished = true;
         for (const field of service.fields) {
             if (data[field.id]) {

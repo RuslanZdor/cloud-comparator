@@ -6,25 +6,25 @@ import CloudServiceDataController from "./data/CloudServiceDataController"
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+let dataController = new CloudServiceDataController(serviceList);
 
-  let dataController = new CloudServiceDataController(serviceList);
+function App() {
 
   let [currentServices, setCurrentService] = new useState([]);
 
   let addCurrentServiceHandler = (serviceId) => {
     dataController.addServiceToCurrentList(serviceId);
-    setCurrentService(new Map(dataController.currentServices()));
+    setCurrentService(new Map(dataController.getCurrentServices()));
   }
 
   let saveCurrentServiceHandler = (serviceId, data) => {
     dataController.saveNewService(serviceId, data);
-    setCurrentService(new Map(dataController.currentServices()));
+    setCurrentService(new Map(dataController.getCurrentServices()));
   }
 
   let removeServiceHandler = (serviceId) => {
     dataController.removeCurrentService(serviceId);
-    setCurrentService(new Map(dataController.currentServices()));
+    setCurrentService(new Map(dataController.getCurrentServices()));
   }
 
   return (
@@ -33,7 +33,7 @@ function App() {
         <h1>Cloud Price Comparator</h1>
       </header>
       <div>
-        <SelectService services={dataController.services()}
+        <SelectService services={dataController.getServices()}
           addCurrentService={addCurrentServiceHandler} />
       </div>
       <div>
