@@ -63,6 +63,7 @@ export default class ServiceDataController {
         if (serviceId == null) {
             throw new Error("Service Id cannot be null");
         }
+        console.log("removing service " + serviceId);
         currentServices.delete(serviceId);
     }
 

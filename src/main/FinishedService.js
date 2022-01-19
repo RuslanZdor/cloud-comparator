@@ -1,13 +1,18 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
-
+import { Col, Container, Row, CloseButton } from "react-bootstrap";
 export default function FinishedService(props) {
     let service = props.service;
+
+    const removeServiceClickHandler = () => {
+        props.removeService(props.service.id);
+    }
+
     return (
         <Container>
             <Row>
                 <Col>
                     {service.name}
+                    <CloseButton onClick={removeServiceClickHandler} />
                 </Col>
             </Row>
             <Row>
@@ -39,6 +44,7 @@ function CloudService(props) {
 
     if (service.providers && service.providers[provider]) {
         return (
+
             <div>
                 <div>{service.providers[provider].label}</div>
                 {service.fields.map(field => {

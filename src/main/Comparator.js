@@ -19,7 +19,7 @@ export default function Comparator(props) {
             {services && [...services.keys()].map(key => {
                 if (services.get(key).isFinished) {
                     return (<Row key={key}>
-                        <FinishedService service={services.get(key)} />
+                        <FinishedService service={services.get(key)} removeService={props.removeService} />
                     </Row>)
                 } else {
                     return (<Row key={key}>

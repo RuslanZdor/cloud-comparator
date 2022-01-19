@@ -4,6 +4,7 @@ import Summary from "./Summary";
 import serviceList from "./data/all_services.json";
 import CloudServiceDataController from "./data/CloudServiceDataController"
 import { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -21,6 +22,11 @@ function App() {
     setCurrentService(new Map(dataController.currentServices()));
   }
 
+  let removeServiceHandler = (serviceId) => {
+    dataController.removeCurrentService(serviceId);
+    setCurrentService(new Map(dataController.currentServices()));
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -32,7 +38,8 @@ function App() {
       </div>
       <div>
         <Comparator currentServices={currentServices}
-          saveNewService={saveCurrentServiceHandler} />
+          saveNewService={saveCurrentServiceHandler}
+          removeService={removeServiceHandler} />
       </div>
       <div>
         <Summary services={currentServices} />
