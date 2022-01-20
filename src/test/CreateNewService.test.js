@@ -9,7 +9,7 @@ test('Verify action items for new service form', () => {
     ])} />);
   expect(screen.getByText(/save/i)).toBeInTheDocument();
   expect(screen.getByText(/description text/i)).toBeInTheDocument();
-  expect(screen.getByText(/label text/i)).toBeInTheDocument();
+  expect(screen.getByPlaceholderText(/label text/i)).toBeInTheDocument();
   expect(screen.getByText(/file storage/i)).toBeInTheDocument();
   expect(screen.getByText(/put GB number that will be used/i)).toBeInTheDocument();
 });

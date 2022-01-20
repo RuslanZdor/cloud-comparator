@@ -28,7 +28,8 @@ export default function CreateNewService(props) {
         <Accordion.Item eventKey={service.id}>
             <Form>
                 <h2>
-                    {service.name}
+                    <Form.Control type="text" name="service_name" placeholder={service.name} onChange={ServiceChangeHandler} />
+                    <Form.Text className="text-muted">Set a service name</Form.Text>
                 </h2>
                 <AiFillDelete onClick={removeServiceHandler} />
                 <p>{service.description}</p>
@@ -47,7 +48,7 @@ export default function CreateNewService(props) {
                 })}
                 <Button variant="primary" type="button" onClick={SaveServiceClickHandler}>Save</Button>
             </Form>
-        </Accordion.Item>
+        </Accordion.Item >
 
     )
 }

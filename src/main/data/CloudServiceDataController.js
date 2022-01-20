@@ -72,6 +72,9 @@ export default class ServiceDataController {
     saveNewService(serviceId, data) {
         const service = this.currentServices.get(serviceId);
         service.isFinished = true;
+        if (data["service_name"]) {
+            service.name = data["service_name"];
+        }
         for (const field of service.fields) {
             if (data[field.id]) {
                 field.value = data[field.id];

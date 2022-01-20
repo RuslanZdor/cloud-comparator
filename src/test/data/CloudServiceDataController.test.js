@@ -39,9 +39,7 @@ test('When service added to current list - it has to be available in get functio
 
 test('When service removed from current list - it has to be not available in get function', () => {
     let controller = new ServiceDataController(tempServices);
-    console.log(controller.getCurrentServices());
     const firstUUID = controller.addServiceToCurrentList(1);
-    console.log(controller.getCurrentServices());
     const secondUUID = controller.addServiceToCurrentList(2);
     controller.removeCurrentService(firstUUID);
     expect(controller.getCurrentServices().size).toBe(1);
@@ -94,4 +92,11 @@ test("After remove all services - current set should be empty", () => {
     controller.addServiceToCurrentList(2);
     controller.removeAllCurrentService();
     expect(controller.getCurrentServices().size).toBe(0);
+})
+
+test("Test saving of service name as field", () => {
+    let controller = new ServiceDataController(tempServices);
+    const firstUUID = controller.addServiceToCurrentList(1);
+    controller.saveNewService(firstUUID, { "service_name": "New Name" });
+    expect(controller.getCurrentServices().get(firstUUID).name).toBe("New Name");
 })
