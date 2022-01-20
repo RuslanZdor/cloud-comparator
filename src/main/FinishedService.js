@@ -1,32 +1,41 @@
 import React from "react";
-import { Col, Container, Row, CloseButton } from "react-bootstrap";
+import { Col, Container, Row, Accordion } from "react-bootstrap";
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
+
 export default function FinishedService(props) {
     let service = props.service;
 
-    const removeServiceClickHandler = () => {
+    const removeServiceHandler = () => {
         props.removeService(props.service.id);
     }
 
+    const editServiceHandler = () => {
+        props.editService(props.service.id);
+    }
+
     return (
-        <Container>
-            <Row>
-                <Col>
-                    {service.name}
-                    <CloseButton onClick={removeServiceClickHandler} />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <CloudService service={service} provider="aws" />
-                </Col>
-                <Col>
-                    <CloudService service={service} provider="gcp" />
-                </Col>
-                <Col>
-                    <CloudService service={service} provider="azure" />
-                </Col>
-            </Row>
-        </Container>
+        <Accordion.Item eventKey={service.id}>
+            <Accordion.Header>
+                {service.name}
+                <AiFillEdit onClick={editServiceHandler} />
+                <AiFillDelete onClick={removeServiceHandler} />
+            </Accordion.Header>
+            <Accordion.Body>
+                <Container>
+                    <Row>
+                        <Col>
+                            <CloudService service={service} provider="aws" />
+                        </Col>
+                        <Col>
+                            <CloudService service={service} provider="gcp" />
+                        </Col>
+                        <Col>
+                            <CloudService service={service} provider="azure" />
+                        </Col>
+                    </Row>
+                </Container>
+            </Accordion.Body>
+        </Accordion.Item>
     )
 }
 

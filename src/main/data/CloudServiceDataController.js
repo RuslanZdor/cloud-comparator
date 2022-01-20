@@ -66,7 +66,6 @@ export default class ServiceDataController {
         if (serviceId == null) {
             throw new Error("Service Id cannot be null");
         }
-        console.log("removing service " + serviceId);
         this.currentServices.delete(serviceId);
     }
 
@@ -80,6 +79,17 @@ export default class ServiceDataController {
                 field.value = field.defaultValue;
             }
         }
+    }
+
+    editService(serviceId) {
+        if (serviceId == null) {
+            throw new Error("Service Id cannot be null");
+        }
+        this.currentServices.get(serviceId).isFinished = false;
+    }
+
+    removeAllCurrentService() {
+        this.currentServices = new Map();
     }
 }
 

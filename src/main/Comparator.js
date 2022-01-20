@@ -1,13 +1,26 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Accordion } from "react-bootstrap";
 import CreateNewService from "./CreateNewService";
-import FinishedService from "./FinishedService"
+import FinishedService from "./FinishedService";
+import { BsArrowsExpand, BsArrowsCollapse } from "react-icons/bs";
+import { AiFillDelete } from 'react-icons/ai';
 
 
 export default function Comparator(props) {
 
     let services = props.currentServices;
 
+    const expandAllHandler = () => {
+
+    }
+
+    const collapseAllHandler = () => {
+
+    }
+
+    const deleteAllHandler = () => {
+        props.removeAllServices();
+    }
     return (
         <Container>
             <Row>
@@ -15,18 +28,38 @@ export default function Comparator(props) {
                 <Col>GCP</Col>
                 <Col>Azure</Col>
             </Row>
-
-            {services && [...services.keys()].map(key => {
-                if (services.get(key).isFinished) {
-                    return (<Row key={key}>
-                        <FinishedService service={services.get(key)} removeService={props.removeService} />
-                    </Row>)
-                } else {
-                    return (<Row key={key}>
-                        <CreateNewService service={services.get(key)} saveNewService={props.saveNewService} />
-                    </Row>)
-                }
-            })}
+            <Row>
+                <Container>
+                    <Row>
+                        <Col>
+                            <BsArrowsExpand onClick={expandAllHandler} />
+                        </Col>
+                        <Col>
+                            <BsArrowsCollapse onClick={collapseAllHandler} />
+                        </Col>
+                        <Col>
+                            <AiFillDelete onClick={deleteAllHandler} />
+                        </Col>
+                    </Row>
+                </Container>
+            </Row>
+            <Accordion defaultActiveKey="0" alwaysOpen>
+                {services && [...services.keys()].map(key => {
+                    if (services.get(key).isFinished) {
+                        return (<Row key={key}>
+                            <FinishedService service={services.get(key)}
+                                removeService={props.removeService}
+                                editService={props.editService} />
+                        </Row>)
+                    } else {
+                        return (<Row key={key}>
+                            <CreateNewService service={services.get(key)}
+                                saveNewService={props.saveNewService}
+                                removeService={props.removeService} />
+                        </Row>)
+                    }
+                })}
+            </Accordion>
         </Container >
     )
 }

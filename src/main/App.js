@@ -27,6 +27,16 @@ function App() {
     setCurrentService(new Map(dataController.getCurrentServices()));
   }
 
+  let editServiceHandler = (serviceId) => {
+    dataController.editService(serviceId);
+    setCurrentService(new Map(dataController.getCurrentServices()));
+  }
+
+  let removeAllServicesHandler = (serviceId) => {
+    dataController.removeAllCurrentService();
+    setCurrentService(new Map(dataController.getCurrentServices()));
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -39,7 +49,9 @@ function App() {
       <div>
         <Comparator currentServices={currentServices}
           saveNewService={saveCurrentServiceHandler}
-          removeService={removeServiceHandler} />
+          removeService={removeServiceHandler}
+          editService={editServiceHandler}
+          removeAllServices={removeAllServicesHandler} />
       </div>
       <div>
         <Summary services={currentServices} />

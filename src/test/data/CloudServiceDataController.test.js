@@ -77,3 +77,21 @@ test('Test summary calculations, summary has to equals to all values multiplies 
     controller.saveNewService(firstUUID, { "first_field": 1 });
     expect(controller.getCurrentServices().get(firstUUID).fields[0].value).toBe(1);
 });
+
+test("To modify service data need to set flag isFinished to false", () => {
+    let controller = new ServiceDataController(tempServices);
+    const firstUUID = controller.addServiceToCurrentList(1);
+    controller.saveNewService(firstUUID, {});
+    expect(controller.getCurrentServices().get(firstUUID).isFinished).toBe(true);
+    controller.editService(firstUUID);
+    expect(controller.getCurrentServices().get(firstUUID).isFinished).toBe(false);
+})
+
+test("After remove all services - current set should be empty", () => {
+    let controller = new ServiceDataController(tempServices);
+    const firstUUID = controller.addServiceToCurrentList(1);
+    controller.saveNewService(firstUUID, {});
+    controller.addServiceToCurrentList(2);
+    controller.removeAllCurrentService();
+    expect(controller.getCurrentServices().size).toBe(0);
+})
