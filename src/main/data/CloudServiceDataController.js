@@ -2,11 +2,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export class Field {
-    constructor(id, label, description, defaultValue) {
+    constructor(id, label, description, defaultValue, type, possibleValues) {
         this.id = id;
         this.label = label;
         this.description = description;
         this.defaultValue = defaultValue;
+        this.type = type;
+        this.possibleValues = possibleValues;
     }
 }
 

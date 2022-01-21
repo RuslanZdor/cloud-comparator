@@ -39,7 +39,7 @@ export default function CreateNewService(props) {
                             <Form.Label>
                                 {field.label}
                             </Form.Label>
-                            <Form.Control type="text" name={field.id} placeholder={field.defaultValue} onChange={ServiceChangeHandler} />
+                            <FieldInput field={field} serviceChange={ServiceChangeHandler} />
                             <Form.Text className="text-muted">
                                 {field.description}
                             </Form.Text>
@@ -51,4 +51,28 @@ export default function CreateNewService(props) {
         </Accordion.Item >
 
     )
+}
+
+function FieldInput(props) {
+    const field = props.field;
+    if (!field) {
+        throw new Error("Field object cannot be null");
+    }
+
+    switch (field.type) {
+        case "select":
+            console.log(field);
+            return (
+                <Form.Select name={field.id} onChange={props.serviceChange}>
+                    {field.possibleValues.map(value => {
+                        const isSelected = (value == field.value ? "selected" : "");
+                        return <option key={value} value={value} selected={isSelected}>{value}</option>
+                    })};
+                </Form.Select>
+            );
+        default:
+            return (
+                <Form.Control type="text" name={field.id} placeholder={field.defaultValue} onChange={props.serviceChange} />
+            )
+    }
 }

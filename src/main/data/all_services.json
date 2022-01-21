@@ -54,9 +54,28 @@
         "id": "2",
         "fields": [
             {
+                "label": "Memory Size",
+                "id": "memory_size",
+                "description": "Set memory size for function",
+                "type": "select",
+                "possibleValues": [
+                    128,
+                    256,
+                    512,
+                    1024
+                ],
+                "defaultValue": 128
+            },
+            {
+                "label": "run_time",
+                "id": "run_time",
+                "description": "Execution time for each run",
+                "defaultValue": 0
+            },
+            {
                 "label": "Run Count",
                 "id": "run_count",
-                "description": "Enter number of GB storage",
+                "description": "Number of runs per month",
                 "defaultValue": 0
             }
         ],
