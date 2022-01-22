@@ -24,10 +24,16 @@ export class Service {
     summary(providerId) {
         let result = 0;
         const provider = this.providers[providerId];
+        let populateFormula = provider.formula;
+        for (const priceName in provider.prices) {
+            populateFormula = populateFormula.replaceAll(priceName, provider.prices[priceName]);
+        }
         this.fields.forEach(field => {
-            result += field.value * provider.prices[field.id];
+            populateFormula = populateFormula.replaceAll(field.id, field.value);
         });
-        return result;
+        console.log(populateFormula);
+        console.log(eval(populateFormula));
+        return Math.round(eval(populateFormula) * 100) / 100;
     }
 }
 

@@ -17,18 +17,21 @@ const service = new Service(
   ],
   {
     "aws": {
+      "formula": "storage_size * storage_price",
       "prices": {
-        "storage_size": 1
+        "storage_price": 1
       }
     },
     "gcp": {
+      "formula": "storage_size * storage_price",
       "prices": {
-        "storage_size": 2
+        "storage_price": 2
       }
     },
     "azure": {
+      "formula": "storage_size * storage_price",
       "prices": {
-        "storage_size": 3
+        "storage_price": 3
       }
     }
   }

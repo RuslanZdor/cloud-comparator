@@ -61,12 +61,11 @@ function FieldInput(props) {
 
     switch (field.type) {
         case "select":
-            console.log(field);
             return (
-                <Form.Select name={field.id} onChange={props.serviceChange}>
+                <Form.Select name={field.id} onChange={props.serviceChange} defaultValue={field.value}>
                     {field.possibleValues.map(value => {
                         const isSelected = (value == field.value ? "selected" : "");
-                        return <option key={value} value={value} selected={isSelected}>{value}</option>
+                        return <option key={value} value={value}>{value}</option>
                     })};
                 </Form.Select>
             );

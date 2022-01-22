@@ -9,26 +9,37 @@ const service = new Service(
   [
     {
       "label": "Storage",
-      "id": "storage_size",
-      "description": "Enter number of GB storage",
-      "defaultValue": 0,
-      "value": 50
+      "id": "memory_size",
+      "value": 512
+    }, {
+      "label": "Run time",
+      "id": "run_time",
+      "value": 1000
+    }, {
+      "label": "Run count",
+      "id": "run_count",
+      "value": 3000000
     }
   ],
   {
     "aws": {
+      "label": "AWS Function",
+      "formula": "((memory_size / 1024 * run_time / 1000 * run_count - 400000) * work_price) + ((run_count - 1000000) * run_price)",
       "prices": {
-        "storage_size": 1
+        "work_price": 0.000016,
+        "run_price": 0.0000002
       }
     },
     "gcp": {
+      "label": "Google Function",
+      "formula": "0",
       "prices": {
-        "storage_size": 2
       }
     },
     "azure": {
+      "label": "Azure Function",
+      "formula": "0",
       "prices": {
-        "storage_size": 3
       }
     }
   }
@@ -43,5 +54,5 @@ test('Test that summary as multiple clouds', () => {
 
 test('Test summary field - it has to be equal to all values to fields', () => {
   render(<Summary services={[service]} />);
-  expect(screen.getByText(/150/i)).toBeInTheDocument();
+  expect(screen.getByText(/18/i)).toBeInTheDocument();
 })
