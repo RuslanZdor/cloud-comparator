@@ -56,14 +56,14 @@ function CloudService(props) {
 
             <div>
                 <div>{service.providers[provider].label}</div>
-                {service.fields.map(field => {
-                    return (
-                        <div key={field.id}>
-                            <div>{field.label}</div>
-                            <div>{field.value} * {service.providers[provider].prices[field.id]} = {field.value * service.providers[provider].prices[field.id]}</div>
-                        </div>
-                    )
-                })}
+                {service.providers[provider].price_components &&
+                    service.providers[provider].price_components.map(priceComponent => {
+                        return (
+                            <div key={priceComponent.name}>
+                                <div>{priceComponent.name} : {service.summary(provider, priceComponent.formula)}</div>
+                            </div>
+                        )
+                    })}
                 <div>Summary: {service.summary(provider)}</div>
             </div>
         )

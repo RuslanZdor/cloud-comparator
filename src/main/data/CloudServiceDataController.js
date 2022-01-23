@@ -21,19 +21,30 @@ export class Service {
         this.providers = providers;
     }
 
-    summary(providerId) {
-        let result = 0;
+    summary(providerId, formula) {
         const provider = this.providers[providerId];
-        let populateFormula = provider.formula;
+        if (!formula) {
+            return this.summaryAll(providerId);
+        }
         for (const priceName in provider.prices) {
-            populateFormula = populateFormula.replaceAll(priceName, provider.prices[priceName]);
+            formula = formula.replaceAll(priceName, provider.prices[priceName]);
         }
         this.fields.forEach(field => {
-            populateFormula = populateFormula.replaceAll(field.id, field.value);
+            formula = formula.replaceAll(field.id, field.value);
         });
-        console.log(populateFormula);
-        console.log(eval(populateFormula));
-        return Math.round(eval(populateFormula) * 100) / 100;
+        return Math.round(eval(formula) * 100) / 100;
+    }
+
+    summaryAll(providerId) {
+        let result = 0;
+        const provider = this.providers[providerId];
+        if (!provider.price_components) {
+            return 0;
+        }
+        provider.price_components.forEach(priceComponent => {
+            result += this.summary(providerId, priceComponent.formula);
+        });
+        return Math.round(result * 100) / 100;
     }
 }
 

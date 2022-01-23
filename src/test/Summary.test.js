@@ -24,10 +24,21 @@ const service = new Service(
   {
     "aws": {
       "label": "AWS Function",
-      "formula": "((memory_size / 1024 * run_time / 1000 * run_count - 400000) * work_price) + ((run_count - 1000000) * run_price)",
+      "price_components": [
+        {
+          "name": "Requests price",
+          "formula": "Math.max((run_count - free_run_count) * run_price, 0)"
+        },
+        {
+          "name": "Computation price",
+          "formula": "Math.max((memory_size / 1024 * run_time / 1000 * run_count - free_work) * work_price, 0)"
+        }
+      ],
       "prices": {
         "work_price": 0.000016,
-        "run_price": 0.0000002
+        "run_price": 0.0000002,
+        "free_run_count": 1000000,
+        "free_work": 400000
       }
     },
     "gcp": {

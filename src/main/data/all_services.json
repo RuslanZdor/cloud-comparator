@@ -82,7 +82,16 @@
         "providers": {
             "aws": {
                 "label": "AWS Function",
-                "formula": "Math.max((memory_size / 1024 * run_time / 1000 * run_count - free_run_count) * work_price, 0) + Math.max((run_count - 1000000) * run_price, 0)",
+                "price_components": [
+                    {
+                        "name": "Requests price",
+                        "formula": "Math.max((run_count - free_run_count) * run_price, 0)"
+                    },
+                    {
+                        "name": "Computation price",
+                        "formula": "Math.max((memory_size / 1024 * run_time / 1000 * run_count - free_work) * work_price, 0)"
+                    }
+                ],
                 "prices": {
                     "work_price": 0.0000166667,
                     "run_price": 0.0000002,
@@ -92,17 +101,41 @@
             },
             "gcp": {
                 "label": "Google Function",
-                "formula": "Math.max((memory_size / 1024 * run_time / 1000 * run_count - free_run_count) * work_price, 0) + Math.max((run_count - 2000000) * run_price, 0)",
+                "price_components": [
+                    {
+                        "name": "Requests price",
+                        "formula": "Math.max((run_count - free_run_count) * run_price, 0)"
+                    },
+                    {
+                        "name": "Memory component",
+                        "formula": "Math.max((memory_size / 1024 * run_time / 1000 * run_count - free_memory) * memory_work_price, 0)"
+                    },
+                    {
+                        "name": "CPU component",
+                        "formula": "Math.max((memory_size / 1024 * run_time / 1000 * run_count * 1.4 - free_cpu) * cpu_work_price, 0)"
+                    }
+                ],
                 "prices": {
-                    "work_price": 0.0000165,
+                    "memory_work_price": 0.0000025,
+                    "cpu_work_price": 0.00001,
                     "run_price": 0.0000004,
                     "free_run_count": 2000000,
-                    "free_work": 400000
+                    "free_memory": 400000,
+                    "free_cpu": 200000
                 }
             },
             "azure": {
                 "label": "Azure Function",
-                "formula": "Math.max((memory_size / 1024 * run_time / 1000 * run_count - free_run_count) * work_price, 0) + Math.max((run_count - 1000000) * run_price, 0)",
+                "price_components": [
+                    {
+                        "name": "Requests price",
+                        "formula": "Math.max((run_count - free_run_count) * run_price, 0)"
+                    },
+                    {
+                        "name": "Computation price",
+                        "formula": "Math.max((memory_size / 1024 * run_time / 1000 * run_count - free_work) * work_price, 0)"
+                    }
+                ],
                 "prices": {
                     "work_price": 0.000016,
                     "run_price": 0.0000002,
