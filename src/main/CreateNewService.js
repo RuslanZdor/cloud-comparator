@@ -59,10 +59,12 @@ function FieldInput(props) {
         throw new Error("Field object cannot be null");
     }
 
+    const defaultValue = field.value ? field.value : field.defaultValue;
+
     switch (field.type) {
         case "select":
             return (
-                <Form.Select name={field.id} onChange={props.serviceChange} defaultValue={field.value}>
+                <Form.Select name={field.id} onChange={props.serviceChange} defaultValue={defaultValue}>
                     {field.possibleValues.map(value => {
                         const isSelected = (value == field.value ? "selected" : "");
                         return <option key={value} value={value}>{value}</option>
@@ -71,7 +73,7 @@ function FieldInput(props) {
             );
         default:
             return (
-                <Form.Control type="text" name={field.id} placeholder={field.defaultValue} onChange={props.serviceChange} />
+                <Form.Control type="text" name={field.id} defaultValue={defaultValue} onChange={props.serviceChange} />
             )
     }
 }

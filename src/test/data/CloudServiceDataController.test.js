@@ -6,6 +6,7 @@ let tempServices = [
         id: 1,
         fields: [{
             label: "first field",
+            header: "{value} is value",
             id: "first_field",
             defaultValue: 0
         }]
@@ -99,4 +100,11 @@ test("Test saving of service name as field", () => {
     const firstUUID = controller.addServiceToCurrentList(1);
     controller.saveNewService(firstUUID, { "service_name": "New Name" });
     expect(controller.getCurrentServices().get(firstUUID).name).toBe("New Name");
+})
+
+test("Header should contain information from each field", () => {
+    let controller = new ServiceDataController(tempServices);
+    const firstUUID = controller.addServiceToCurrentList(1);
+    controller.saveNewService(firstUUID, { "first_field": 1 });
+    expect(controller.getCurrentServices().get(firstUUID).headerSummary()).toBe("1 is value");
 })

@@ -11,6 +11,7 @@ const service = new Service(
       "label": "Storage",
       "id": "storage_size",
       "description": "Enter number of GB storage",
+      "header": "field header",
       "defaultValue": 0,
       "value": 50
     }

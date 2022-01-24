@@ -2,10 +2,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export class Field {
-    constructor(id, label, description, defaultValue, type, possibleValues) {
+    constructor(id, label, description, header, defaultValue, type, possibleValues) {
         this.id = id;
         this.label = label;
         this.description = description;
+        this.header = header;
         this.defaultValue = defaultValue;
         this.type = type;
         this.possibleValues = possibleValues;
@@ -33,6 +34,21 @@ export class Service {
             formula = formula.replaceAll(field.id, field.value);
         });
         return Math.round(eval(formula) * 100) / 100;
+    }
+
+    headerSummary() {
+        let header = "";
+        console.log(this);
+        this.fields.forEach(field => {
+            if (field.header) {
+                header += field.header.replaceAll("{value}", field.value);
+                header += ", ";
+            }
+        });
+        if (header.length > 1) {
+            header = header.slice(0, -2);
+        }
+        return header;
     }
 
     summaryAll(providerId) {
@@ -94,6 +110,7 @@ export default class ServiceDataController {
         if (data["service_name"]) {
             service.name = data["service_name"];
         }
+        console.log(service);
         for (const field of service.fields) {
             if (data[field.id]) {
                 field.value = data[field.id];

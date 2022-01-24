@@ -16,7 +16,7 @@ export default function FinishedService(props) {
     return (
         <Accordion.Item eventKey={service.id}>
             <Accordion.Header>
-                {service.name}
+                {service.name}: {service.headerSummary()}
                 <AiFillEdit onClick={editServiceHandler} />
                 <AiFillDelete onClick={removeServiceHandler} />
             </Accordion.Header>

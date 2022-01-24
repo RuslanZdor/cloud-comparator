@@ -57,6 +57,7 @@
                 "label": "Memory Size",
                 "id": "memory_size",
                 "description": "Set memory size for function",
+                "header": "Memory {value}mb",
                 "type": "select",
                 "possibleValues": [
                     128,
@@ -70,12 +71,14 @@
                 "label": "run_time",
                 "id": "run_time",
                 "description": "Execution time for each run in in milliseconds",
+                "header": "Execution time {value} milliseconds",
                 "defaultValue": 0
             },
             {
                 "label": "Run Count",
                 "id": "run_count",
                 "description": "Number of runs per month",
+                "header": "{value} execution in month",
                 "defaultValue": 0
             }
         ],

@@ -10,14 +10,17 @@ const service = new Service(
     {
       "label": "Storage",
       "id": "memory_size",
+      "header": "header",
       "value": 512
     }, {
       "label": "Run time",
       "id": "run_time",
+      "header": "header",
       "value": 1000
     }, {
       "label": "Run count",
       "id": "run_count",
+      "header": "header",
       "value": 3000000
     }
   ],
